@@ -96,8 +96,37 @@ class SortingRobot:
         """
         Sort the robot's list.
         """
-        # Fill this out
-        pass
+        # Pickup item at postion or swap during recursion
+        self.swap_item()
+
+        # Check if robot can move right and move right looking for the smallest item
+        while self.can_move_right():
+            self.set_light_on()
+            self.move_right()
+          # Find a item that is smaller than current item
+            if self.compare_item() == 1:
+                self.swap_item()
+                self.set_light_off()
+
+        # Move back left until reaching empty spot
+        while self.compare_item() != None:
+            self.set_light_on()
+            self.move_left()
+            # place item in empty spot
+        self.swap_item()
+        self.set_light_off()
+
+        #Move one spot to the right
+        if self.can_move_right():
+            self.set_light_on()
+            self.move_right()
+            self.set_light_off()
+            # Repeat
+            self.sort()
+        else:
+            if self.light_is_on() == True:
+                self.set_light_off()
+            pass
 
 
 if __name__ == "__main__":
